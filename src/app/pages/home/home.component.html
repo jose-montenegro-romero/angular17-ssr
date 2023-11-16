@@ -1,0 +1,7 @@
+<div class="container">
+    <h1 class="text-center">Álbumes</h1>
+
+    @for (item of dataAlbums(); track item.id) {
+        <app-card [id]="item.id" [title]="item.title"></app-card>
+    }
+</div>
