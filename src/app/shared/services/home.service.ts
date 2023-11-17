@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 // Interfaces
@@ -7,20 +7,22 @@ import { Photo } from '../models/photo';
 
 @Injectable()
 export class HomeService {
-
-  constructor(
-    private httpclient: HttpClient
-  ) { }
+  constructor(private httpclient: HttpClient) {}
 
   getAlbumsApi(): Observable<Album[]> {
-    return this.httpclient.get<Array<Album>>("https://jsonplaceholder.typicode.com/albums");
+    return this.httpclient.get<Array<Album>>(
+      'https://jsonplaceholder.typicode.com/albums'
+    );
   }
 
   getAlbumApi(id: string): Observable<Photo[]> {
-    return this.httpclient.get<Array<Photo>>("https://jsonplaceholder.typicode.com/photos")
+    return this.httpclient
+      .get<Array<Photo>>('https://jsonplaceholder.typicode.com/photos')
       .pipe(
         map((response: Array<Photo>) => {
-          const result: Array<Photo> = response.filter((item: Photo) => item.albumId === Number(id));
+          const result: Array<Photo> = response.filter(
+            (item: Photo) => item.albumId === Number(id)
+          );
           return result;
         })
       );
