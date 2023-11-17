@@ -23,6 +23,7 @@
     "baseUrl": "src",
     "paths": {
       "@environments/*": ["environments/*"],
+      "@interceptors/*": ["app/shared/interceptors/*"],
       "@models/*": ["app/shared/models/*"],
       "@services/*": ["app/shared/services/*"],
       "@services-components/*": ["app/shared/services-components/*"]
