@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 // Services
 import { HomeService } from '@services/home.service';
-import { SpotifyService } from '@services/spotify/spotify.service';
+import { SpotifyAuthService } from '@services/spotify/spotifyAuth.service';
 
 export const routes: Routes = [
   {
     path: '',
-    providers: [HomeService, SpotifyService],
+    providers: [HomeService, SpotifyAuthService],
     loadComponent: () =>
       import('./pages/home/home.component').then((mod) => mod.HomeComponent),
   },

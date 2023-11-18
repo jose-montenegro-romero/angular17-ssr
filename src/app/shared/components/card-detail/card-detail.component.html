@@ -1,6 +1,15 @@
 <div class="card">
-    <img [ngSrc]="url" width="50" height="50" class="card-img-top" [alt]="id">
-    <div class="card-body">
-        <p class="card-text">{{title}}</p>
-    </div>
+  <img
+    [ngSrc]="urlImage"
+    width="50"
+    height="50"
+    class="card-img-top"
+    [alt]="id"
+  />
+  <div class="card-body text-center">
+    <p class="card-text">{{ title }}</p>
+    @if (url) {
+    <a [routerLink]="url" class="btn btn-primary">Ir al Álbum</a>
+    }
+  </div>
 </div>

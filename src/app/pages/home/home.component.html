@@ -1,7 +1,18 @@
 <div class="container">
+  <div class="row text-center">
     <h1 class="text-center">Álbumes</h1>
+  </div>
 
+  <div class="row mt-5">
     @for (item of dataAlbums(); track item.id) {
-        <app-card [id]="item.id" [title]="item.title"></app-card>
+    <div class="col-lg-3 col-md-12 mb-2">
+      <app-card-detail
+        [id]="item.id"
+        [title]="item.name + ' - ' + item.artists[0].name"
+        [urlImage]="item.images[0].url"
+        [url]="'/' + item.id"
+      ></app-card-detail>
+    </div>
     }
+  </div>
 </div>
