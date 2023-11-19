@@ -43,7 +43,6 @@ export class HomeDetailComponent implements OnInit {
 
   getAlbum(id: string) {
     this.homeService.getAlbumApi(id).subscribe((data: Array<Track>) => {
-      console.log(data);
       this.dataAlbum.set(data);
     });
   }

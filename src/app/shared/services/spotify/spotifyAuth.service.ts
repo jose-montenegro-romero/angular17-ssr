@@ -14,7 +14,7 @@ interface IAuth {
 export class SpotifyAuthService {
   constructor(private httpclient: HttpClient) {}
 
-  getAccessToken(): Observable<string> {
+  getAccessToken(): Observable<IAuth> {
     const url: string = 'https://accounts.spotify.com/api/token';
 
     const encodedBody = new HttpParams({
@@ -34,7 +34,7 @@ export class SpotifyAuthService {
       .post<IAuth>(url, encodedBody, { headers: httpHeaders })
       .pipe(
         map((response: IAuth) => {
-          return response?.access_token;
+          return response;
         })
       );
   }

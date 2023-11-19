@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, WritableSignal, signal } from '@angular/core';
 // Services
+import { CookiesService } from '@services/cookies/cookies.service';
 import { HomeService } from '@services/home.service';
 import { SpotifyAuthService } from '@services/spotify/spotifyAuth.service';
 // Interfaces
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
-    private spotifyAuthService: SpotifyAuthService
+    private spotifyAuthService: SpotifyAuthService,
+    private cookiesService: CookiesService
   ) {}
 
   ngOnInit(): void {
@@ -30,14 +32,15 @@ export class HomeComponent implements OnInit {
 
   getAlbums(): void {
     this.homeService.getAlbumsApi().subscribe((data: Array<Album>) => {
-      console.log(data);
       this.dataAlbums.set(data);
     });
   }
 
   getToken(): void {
-    // this.spotifyAuthService.getAccessToken().subscribe((token: string) => {
-    //   console.log(token);
-    // });
+    if (!this.cookiesService.check('token')) {
+      this.spotifyAuthService.getAccessToken().subscribe((token: any) => {
+        this.cookiesService.set('token', token.access_token, token.expires_in);
+      });
+    }
   }
 }

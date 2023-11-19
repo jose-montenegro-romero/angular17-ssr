@@ -1,8 +1,13 @@
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { environment } from '@environments/environment';
+import { inject } from '@angular/core';
+// Services
+import { CookiesService } from '@services/cookies/cookies.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token: string = environment.token;
+  const ssrCookieService = inject(CookiesService);
+  const token: string = ssrCookieService.get('token');
+  // const token: string =
+  //   'BQCNfWO4UOwwI9Yt8-6IihE6FC0omEmmqu3ahoLIlJi4Sk5bzUbv35oSYZ4QtvqdBeh893AW0W7Ky2Zh3uqL1_6qAuqHPZ1Cg67TFz6fDU7_R0WHuCA';
 
   if (!req.headers.has('Authorization')) {
     if (token) {
