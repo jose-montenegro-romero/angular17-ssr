@@ -10,7 +10,9 @@ interface IAuth {
   expires_in: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SpotifyAuthService {
   constructor(private httpclient: HttpClient) {}
 

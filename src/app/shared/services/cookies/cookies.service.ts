@@ -20,6 +20,10 @@ export class CookiesService {
     return this.ssrCookieService.get(key);
   }
 
+  getAll(): { [key: string]: string } {
+    return this.ssrCookieService.getAll();
+  }
+
   check(key: string): boolean {
     return this.ssrCookieService.check(key);
   }

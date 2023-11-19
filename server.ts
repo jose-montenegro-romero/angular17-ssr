@@ -31,6 +31,7 @@ export function app(): express.Express {
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
 
+    req.cookies = req.headers.cookie;
     commonEngine
       .render({
         bootstrap,
