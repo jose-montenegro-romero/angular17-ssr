@@ -6,7 +6,6 @@ import { HomeService } from '@services/home.service';
 import { Album } from '@models/album';
 // Components
 import { CardDetailComponent } from '../../shared/components/card-detail/card-detail.component';
-import { SpotifyAuthService } from '../../shared/services/spotify/spotifyAuth.service';
 
 @Component({
   selector: 'app-home',
@@ -18,14 +17,10 @@ import { SpotifyAuthService } from '../../shared/services/spotify/spotifyAuth.se
 export class HomeComponent implements OnInit {
   public dataAlbums: WritableSignal<Array<Album>> = signal([]);
 
-  constructor(
-    private homeService: HomeService,
-    private spotifyAuthService: SpotifyAuthService
-  ) {}
+  constructor(private homeService: HomeService) {}
 
   ngOnInit(): void {
     this.getAlbums();
-    // this.temp();
   }
 
   getAlbums(): void {
@@ -33,10 +28,4 @@ export class HomeComponent implements OnInit {
       this.dataAlbums.set(data);
     });
   }
-
-  // async temp() {
-  //   const temp = await this.spotifyAuthService.getAccessToken();
-
-  //   console.log(temp);
-  // }
 }
