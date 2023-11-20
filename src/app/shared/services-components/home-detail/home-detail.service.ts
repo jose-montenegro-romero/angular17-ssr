@@ -8,7 +8,7 @@ interface Card {
 @Injectable({
     providedIn: 'root'
 })
-export class CardService {
+export class HomeDetailService {
 
     private _data = signal<Card>({});
     public get = computed(() => this._data())

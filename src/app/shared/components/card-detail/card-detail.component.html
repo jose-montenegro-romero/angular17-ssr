@@ -5,11 +5,12 @@
     height="50"
     class="card-img-top"
     [alt]="id"
+    [priority]="priorityImage"
   />
   <div class="card-body text-center">
     <p class="card-text">{{ title }}</p>
     @if (url) {
-    <a [routerLink]="url" class="btn btn-primary">Ir al Álbum</a>
+    <a (click)="redirectRouterLink()" [routerLink]="url" class="btn btn-primary">Ir al Álbum</a>
     }
   </div>
 </div>

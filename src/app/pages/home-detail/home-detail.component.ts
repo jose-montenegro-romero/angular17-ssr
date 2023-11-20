@@ -6,8 +6,9 @@ import {
   WritableSignal,
   signal,
 } from '@angular/core';
+import { Router } from '@angular/router';
 // Services components
-import { CardService } from 'app/shared/components/card/services/card-detail.service';
+import { HomeDetailService } from '@services-components/home-detail/home-detail.service';
 // Services
 import { HomeService } from '@services/home.service';
 // Interfaces
@@ -30,11 +31,12 @@ export class HomeDetailComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
-    private cardService: CardService
-  ) {}
+    private homeDetailService: HomeDetailService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.title.set(this.cardService.get().title);
+    this.title.set(this.homeDetailService.get().title);
 
     if (this.id) {
       this.getAlbum(this.id);
@@ -42,8 +44,18 @@ export class HomeDetailComponent implements OnInit {
   }
 
   getAlbum(id: string) {
-    this.homeService.getAlbumApi(id).subscribe((data: Array<Track>) => {
-      this.dataAlbum.set(data);
+    this.homeService.getAlbumApi(id).subscribe({
+      next: (data: Array<Track>) => {
+        this.dataAlbum.set(data);
+      },
+      error: (err) => {
+        console.log(err);
+        this.router.navigateByUrl('');
+      }
     });
+
+
+
+    // this.router.navigateByUrl('/');
   }
 }

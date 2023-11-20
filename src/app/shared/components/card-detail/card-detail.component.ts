@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -14,4 +14,11 @@ export class CardDetailComponent {
   @Input({ required: true }) urlImage: string = '';
   @Input({ required: false }) url: string = '';
   @Input({ required: true }) title: string = '';
+  @Input({ required: false }) priorityImage: boolean = false;
+
+  @Output() redirectUrl: EventEmitter<{ title: string, id: string }> = new EventEmitter<{ title: string, id: string }>();
+
+  redirectRouterLink() {
+    this.redirectUrl.emit({ title: this.title, id: this.id });
+  }
 }
