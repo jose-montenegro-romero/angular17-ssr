@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 // Environments
 import { environment } from '@environments/environment';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 interface IAuth {
   access_token: string;
@@ -32,12 +32,12 @@ export class SpotifyAuthService {
       Authorization: '',
     });
 
-    return this.httpclient
-      .post<IAuth>(url, encodedBody, { headers: httpHeaders })
-      .pipe(
-        map((response: IAuth) => {
-          return response;
-        })
-      );
+    return this.httpclient.post<IAuth>(url, encodedBody, {
+      headers: httpHeaders,
+    });
+
+    // const res = await lastValueFrom(
+    //   this.httpclient.post<IAuth>(url, encodedBody, { headers: httpHeaders })
+    // );
   }
 }

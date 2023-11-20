@@ -8,7 +8,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
 export class CookiesService {
   constructor(private ssrCookieService: SsrCookieService) {}
 
-  set(key: string, value?: any, expires?: number): void {
+  set(key: string, value: string, expires?: number): void {
     let expiresTemp = undefined;
     if (expires) {
       expiresTemp = new Date(Date.now() + expires * 1000);

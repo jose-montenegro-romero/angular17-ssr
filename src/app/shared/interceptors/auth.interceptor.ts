@@ -2,6 +2,7 @@ import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 // Services
 import { CookiesService } from '@services/cookies/cookies.service';
+import { switchMap } from 'rxjs';
 import { SpotifyAuthService } from '../services/spotify/spotifyAuth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -13,17 +14,22 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     if (token) {
       req = addToken(req, token);
     }
+  } else {
+    return next(req);
   }
 
-  // if (!token) {
-  //   spotifyAuthService.getAccessToken().subscribe((data: any) => {
-  //     console.log(data);
-  //     ssrCookieService.set('token', data.access_token);
-  //     return next(req);
-  //   });
-  // }
+  if (!token) {
+    return spotifyAuthService.getAccessToken().pipe(
+      switchMap((token) => {
+        ssrCookieService.set('token', token.access_token, token.expires_in);
+        req = addToken(req, token.access_token);
+        return next(req);
+      })
+    );
+  } else {
+    return next(req);
+  }
 
-  return next(req);
   //     // return next.handle(request);
   //     return next.handle(request).pipe(
   //       catchError((error: HttpErrorResponse) => {
