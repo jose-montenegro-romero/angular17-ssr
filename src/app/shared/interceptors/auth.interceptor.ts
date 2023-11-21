@@ -1,9 +1,9 @@
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { switchMap } from 'rxjs';
 // Services
 import { CookiesService } from '@services/cookies/cookies.service';
-import { switchMap } from 'rxjs';
-import { SpotifyAuthService } from '../services/spotify/spotifyAuth.service';
+import { SpotifyAuthService } from '@services/spotify/spotifyAuth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const ssrCookieService = inject(CookiesService);
