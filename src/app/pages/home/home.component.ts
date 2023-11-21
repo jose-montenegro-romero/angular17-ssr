@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 // Services components
 import { HomeDetailService } from '@services-components/home-detail/home-detail.service';
 // Services
@@ -12,7 +13,7 @@ import { CardDetailComponent } from '../../shared/components/card-detail/card-de
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardDetailComponent],
+  imports: [CommonModule, CardDetailComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -21,8 +22,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
-    private homeDetailService: HomeDetailService,
-  ) { }
+    private homeDetailService: HomeDetailService
+  ) {}
 
   ngOnInit(): void {
     this.getAlbums();

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 // Interfaces
 import { Album } from '@models/album';
+import { IArtist } from '@models/artist';
 import { Track } from '@models/track';
 
 @Injectable()
@@ -27,6 +28,16 @@ export class HomeService {
       .pipe(
         map((response: any) => {
           return response.tracks.items;
+        })
+      );
+  }
+
+  getArtistApi(id: string): Observable<IArtist> {
+    return this.httpclient
+      .get<IArtist>(`https://api.spotify.com/v1/artists/${id}`)
+      .pipe(
+        map((response: IArtist) => {
+          return response;
         })
       );
   }
