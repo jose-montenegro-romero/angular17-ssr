@@ -10,7 +10,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
   if (!token) {
     router.navigateByUrl('/');
     return false;
+  } else {
+    return true;
   }
-
-  return true;
 };
