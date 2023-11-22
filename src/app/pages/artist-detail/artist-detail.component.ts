@@ -1,11 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  Component,
-  Input,
-  WritableSignal,
-  afterNextRender,
-  signal,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 // Models
 import { IArtist } from '@models/artist';
 // Services
@@ -18,21 +12,25 @@ import { HomeService } from '@services/home.service';
   templateUrl: './artist-detail.component.html',
   styleUrl: './artist-detail.component.scss',
 })
-export class ArtistDetailComponent {
+export class ArtistDetailComponent implements OnInit {
   @Input() id = '';
-  public artist: WritableSignal<IArtist> = signal({
+  public artist: IArtist = {
     images: [],
-  } as IArtist);
+  };
 
   constructor(private homeService: HomeService) {
-    afterNextRender(() => {
-      this.getArtist(this.id);
-    });
+    // afterNextRender(() => {
+    // this.getArtist(this.id);
+    // });
+  }
+
+  ngOnInit(): void {
+    this.getArtist(this.id);
   }
 
   getArtist(id: string) {
     this.homeService.getArtistApi(id).subscribe((data: IArtist) => {
-      this.artist.set(data);
+      this.artist = data;
     });
   }
 }

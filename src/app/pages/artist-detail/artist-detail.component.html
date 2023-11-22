@@ -3,19 +3,19 @@
     class="cover-container d-flex justify-content-center w-100 p-3 mx-auto flex-column"
   >
     <main class="px-3">
-      @if (artist().images.length > 0 ) {
+      @if (artist.images.length > 0 ) {
       <img
         class="rounded-circle"
-        [ngSrc]="artist().images[0].url"
+        [ngSrc]="artist.images[0].url"
         alt=""
         width="300"
         height="300"
         priority="true"
       />
       }
-      <h1>{{ artist().name | uppercase }}</h1>
+      <h1>{{ artist.name | uppercase }}</h1>
       <p class="lead">
-        {{ artist().genres?.join(", ") }}
+        {{ artist.genres?.join(", ") }}
       </p>
     </main>
   </div>
