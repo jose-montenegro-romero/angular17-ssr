@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 // Guards
+import { loginGuard } from '@guards/login/login.guard';
 // Services
 import { HomeService } from '@services/home.service';
 import { SpotifyAuthService } from '@services/spotify/spotifyAuth.service';
@@ -8,7 +9,7 @@ export const routes: Routes = [
   {
     path: 'artista/:id',
     providers: [HomeService],
-    // canActivate: [loginGuard],
+    canActivate: [loginGuard],
     title: 'Artista',
     loadComponent: () =>
       import('./pages/artist-detail/artist-detail.component').then(
@@ -18,7 +19,7 @@ export const routes: Routes = [
   {
     path: ':id',
     providers: [HomeService],
-    // canActivate: [loginGuard],
+    canActivate: [loginGuard],
     title: 'Detail',
     loadComponent: () =>
       import('./pages/home-detail/home-detail.component').then(

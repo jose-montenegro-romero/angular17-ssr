@@ -1,5 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, afterNextRender } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 // Models
 import { IArtist } from '@models/artist';
 // Services
@@ -12,20 +13,20 @@ import { HomeService } from '@services/home.service';
   templateUrl: './artist-detail.component.html',
   styleUrl: './artist-detail.component.scss',
 })
-export class ArtistDetailComponent implements OnInit {
-  @Input() id = '';
+export class ArtistDetailComponent {
+
   public artist: IArtist = {
     images: [],
   };
 
-  constructor(private homeService: HomeService) {
+  constructor(
+    private homeService: HomeService,
+    private activatedRoute: ActivatedRoute
+  ) {
     // afterNextRender(() => {
-    // this.getArtist(this.id);
+      const id: string = this.activatedRoute.snapshot.paramMap.get('id') || '';
+      this.getArtist(id);
     // });
-  }
-
-  ngOnInit(): void {
-    this.getArtist(this.id);
   }
 
   getArtist(id: string) {

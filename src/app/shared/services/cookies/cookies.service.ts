@@ -6,7 +6,7 @@ import { SsrCookieService } from 'ngx-cookie-service-ssr';
   providedIn: 'root',
 })
 export class CookiesService {
-  constructor(private ssrCookieService: SsrCookieService) {}
+  constructor(private ssrCookieService: SsrCookieService) { }
 
   set(key: string, value: string, expires?: number): void {
     let expiresTemp = undefined;

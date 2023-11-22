@@ -4,6 +4,7 @@ import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bootstrap from './src/main.server';
+import compression from 'compression';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -16,6 +17,7 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
+  server.use(compression());
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -29,7 +31,9 @@ export function app(): express.Express {
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
+    // req.cookies = req.headers.cookie;
     const { protocol, originalUrl, baseUrl, headers } = req;
+    
     commonEngine
       .render({
         bootstrap,
@@ -38,8 +42,8 @@ export function app(): express.Express {
         publicPath: browserDistFolder,
         providers: [
           { provide: APP_BASE_HREF, useValue: baseUrl },
-          { provide: 'REQUEST', useValue: req },
-          { provide: 'RESPONSE', useValue: res },
+          // { provide: 'REQUEST', useValue: req },
+          // { provide: 'RESPONSE', useValue: res },
         ],
       })
       .then((html) => res.send(html))
