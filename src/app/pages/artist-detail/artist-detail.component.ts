@@ -1,5 +1,5 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, Input, OnInit, afterNextRender } from '@angular/core';
+import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, Input, OnInit, PLATFORM_ID, afterNextRender } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // Models
 import { IArtist } from '@models/artist';
@@ -20,12 +20,17 @@ export class ArtistDetailComponent {
   };
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: string,
     private homeService: HomeService,
     private activatedRoute: ActivatedRoute
   ) {
     // afterNextRender(() => {
-      const id: string = this.activatedRoute.snapshot.paramMap.get('id') || '';
+    const id: string = this.activatedRoute.snapshot.paramMap.get('id') || '';
+
+    if (isPlatformBrowser(this.platformId)) {
       this.getArtist(id);
+    }
+
     // });
   }
 
