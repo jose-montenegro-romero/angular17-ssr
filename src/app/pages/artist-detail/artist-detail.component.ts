@@ -1,5 +1,9 @@
-import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID, afterNextRender } from '@angular/core';
+import {
+  CommonModule,
+  NgOptimizedImage,
+  isPlatformBrowser,
+} from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // Models
 import { IArtist } from '@models/artist';
@@ -14,7 +18,6 @@ import { HomeService } from '@services/home.service';
   styleUrl: './artist-detail.component.scss',
 })
 export class ArtistDetailComponent {
-
   public artist: IArtist = {
     images: [],
   };
