@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, InputSignal, input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  @Input({ required: true }) id: string = '';
-  @Input({ required: true }) title: string = '';
-  @Input({ required: true }) urlMp3: string = '';
+  public id: InputSignal<string> = input.required<string>();
+  public title: InputSignal<string> = input.required<string>();
+  public urlMp3: InputSignal<string> = input.required<string>();
 }
